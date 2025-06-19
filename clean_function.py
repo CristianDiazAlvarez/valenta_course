@@ -24,3 +24,5 @@ def clean_data(df):
     df['Age'] = df['Age'].astype(int)
     df['Polyur1a']=df['Polyur1a'].fillna(df['Polyur1a'].mode()[0])
     df['Obesity']=df['Obesity'].fillna(df['Obesity'].mode()[0])
+    
+    return df
