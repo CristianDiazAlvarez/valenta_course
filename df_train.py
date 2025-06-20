@@ -72,3 +72,7 @@ def train_models(X_train, y_train, random_state=42):
     # print("Models trained successfully!")
     # print(trained_models)
 #    pass
+
+
+if __name__== "__main__":
+    print("Este es train")

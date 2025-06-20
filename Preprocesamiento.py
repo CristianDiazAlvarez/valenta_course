@@ -1,4 +1,4 @@
-#from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split
 
 def split_data(df):
 
@@ -11,8 +11,8 @@ def split_data(df):
 
 
     #Separate features and target
-    X = df.drop(columns=['Class'])
-    y = df['Class']
+    X = df.drop(columns=['class'])
+    y = df['class']
 
     #Split
     X_train, X_test, y_train, y_test =  train_test_split(X,y, test_size=0.3, random_state=42)
