@@ -24,5 +24,22 @@ def clean_data(df):
     df['Age'] = df['Age'].astype(int)
     df['Polyur1a']=df['Polyur1a'].fillna(df['Polyur1a'].mode()[0])
     df['Obesity']=df['Obesity'].fillna(df['Obesity'].mode()[0])
-    
+
+    rename_dict = {
+    'wea kness': 'wea_kness',
+    'Polyphagia': 'Polyphagia',
+    'Genital thrush': 'Genital_thrush',
+    'visual blurring': 'visual_blurring',
+    'Itching': 'Itching',
+    'Irritability': 'Irritability',
+    'delayed healing': 'delayed_healing',
+    'partial paresis': 'partial_paresis',
+    'muscle stiffness': 'muscle_stiffness',
+    'Alopecia': 'Alopecia',
+    'Obesity': 'Obesity',
+    'suddn weight-loss': 'suddn_weight_loss'
+}
+
+    df.rename(columns=rename_dict, inplace=True)
+
     return df
