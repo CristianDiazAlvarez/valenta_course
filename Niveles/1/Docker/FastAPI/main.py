@@ -6,5 +6,5 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    return {"MLOPS PUJ": "Hello World"}
+    return {"FastAPI": "Desde Docker en Python"}
 
