@@ -7,8 +7,9 @@ import os
 
 app = FastAPI()
 
-# Load the pre-trained model
-#model = joblib.load("model.pkl")
+
+
+
 
 # Definiendo un modelo de datos
 class Item(BaseModel):
@@ -43,7 +44,11 @@ def check_models():
  
 
 @app.post("/predict")
-def predict_item(item: Item):
+def predict_item(item: Item, model_file: str ):
+
+    # Load the pre-trained model
+    model = joblib.load("notebooks/" + model_file + ".pkl")
+
     try:
         features = item.dict()
         # Convertir a DataFrame de una sola fila
