@@ -1,9 +1,12 @@
 *.csv
 .venv
-__pycache__
+__pycache__/
 *.pkl
 
 #folders
 *.ipynb_checkpoints
 tallerCompose
 fastapi-ml-project
+logs/
+plugins/
+.env
