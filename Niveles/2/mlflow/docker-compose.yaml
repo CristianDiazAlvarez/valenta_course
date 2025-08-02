@@ -10,7 +10,8 @@ services:
       - '9000:9000'
       - '9001:9001'
     volumes:
-      - ./minio:/data
+      - minio_data:/data
+
     restart: unless-stopped
   mlflow:
     build:
@@ -47,3 +48,7 @@ services:
     depends_on:
       - mlflow
     restart: always
+
+volumes:
+  minio_data:
+    driver: local
