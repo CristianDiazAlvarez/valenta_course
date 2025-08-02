@@ -10,3 +10,6 @@ fastapi-ml-project
 logs/
 plugins/
 .env
+.DS_Store
+minio/
+mlflowdb/
