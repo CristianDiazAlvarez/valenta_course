@@ -13,3 +13,4 @@ plugins/
 .DS_Store
 minio/
 mlflowdb/
+*timestamp*
