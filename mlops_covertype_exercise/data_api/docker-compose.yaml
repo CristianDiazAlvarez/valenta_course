@@ -1,0 +1,89 @@
+services:
+  api:
+    build: .
+    container_name: fastapi
+    ports:
+      - '80:80'
+    volumes:
+      - ./data:/data
+      - ./main.py:/main.py
+    restart: always
+
+  minio:
+    container_name: Minio
+    command: server /data --console-address ":9001"
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=supersecret
+    image: quay.io/minio/minio:latest
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    volumes:
+      - minio_data:/data
+
+    restart: unless-stopped
+
+  mlflow:
+    build:
+      context: mlflow #folder with Dockerfile defining the MLflow service
+      # Assuming Dockerfile is in the mlflow directory
+      dockerfile: Dockerfile
+    container_name: MLflow
+    environment:
+      MLFLOW_S3_ENDPOINT_URL: http://minio:9000 #Minio for model storage
+      AWS_ACCESS_KEY_ID: admin
+      AWS_SECRET_ACCESS_KEY: supersecret
+    depends_on:
+      - minio
+    ports:
+      - 5001:5000
+    volumes:
+      - ./mlflowdb:/app/mlflowdb
+    restart: always
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: covertype
+      MYSQL_USER: covertypeuser
+      MYSQL_PASSWORD: covertypepass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  jupyter:
+    image: jupyter/scipy-notebook:latest
+    container_name: Jupyter
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./notebooks:/home/jovyan/work
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+      - MLFLOW_S3_ENDPOINT_URL=http://minio:9000
+      - AWS_ACCESS_KEY_ID=admin
+      - AWS_SECRET_ACCESS_KEY=supersecret
+      - PASSWORD=valentasecret
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - MYSQL_DATABASE=covertype
+      - MYSQL_USER=covertypeuser
+      - MYSQL_PASSWORD=covertypepass
+    depends_on:
+      - mlflow
+      - mysql
+    restart: always
+
+
+
+volumes:
+  minio_data:
+    driver: local
+  mysql_data:
+    driver: local
