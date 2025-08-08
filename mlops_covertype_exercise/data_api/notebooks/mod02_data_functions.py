@@ -5,6 +5,7 @@ import requests
 import mysql.connector
 from mysql.connector import Error
 import os
+import pandas as pd
 
 # # Database Functions
 
@@ -268,5 +269,29 @@ def insert_unique_covertype_data(data, table_name):
         cursor.close()
         conn.close()
 
-
+def print_random_10_with_headers(table_name):
+    """
+    Queries 10 random rows from the given MySQL table and
+    prints them with column headers in a DataFrame format.
+    
+    Parameters:
+    - table_name (str): Name of the table in MySQL
+    """
+    cursor, conn = get_mysql_cursor()
+    try:
+        # Query 10 random rows
+        cursor.execute(f"SELECT * FROM `{table_name}` ORDER BY RAND() LIMIT 10;")
+        results = cursor.fetchall()
+        
+        # Get column names
+        cursor.execute(f"SHOW COLUMNS FROM `{table_name}`;")
+        columns = [col[0] for col in cursor.fetchall()]
+        
+        # Create DataFrame and print
+        df = pd.DataFrame(results, columns=columns)
+        print(df.to_string(index=False))
+        
+    finally:
+        cursor.close()
+        conn.close()
 
