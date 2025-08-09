@@ -1,0 +1,61 @@
+Folder PATH listing
+Volume serial number is 308D-E8E6
+C:.
+|   .env
+|   docker-compose.yaml
+|   project_data.png
+|   project_structure.txt
+|   
++---airflow
+|       docker-compose.yaml
+|       Dockerfile
+|       
++---data_api
+|   |   Dockerfile
+|   |   main.py
+|   |   requirements.txt
+|   |   
+|   \---data
+|       |   timestamps.json
+|       |   
+|       \---covertype
+|               covertype_train.csv
+|               
++---minio_data
++---mlflow
+|       Dockerfile
+|       
+\---notebooks
+    |   mod01_db_connection.ipynb
+    |   mod02_data_functions.ipynb
+    |   mod02_data_functions.py
+    |   mod03A_preprocessing.py
+    |   mod03_clean_data_train.ipynb
+    |   mod03_preprocessing_v2.py
+    |   mod04_train_model.py
+    |   
+    +---.ipynb_checkpoints
+    |       mod01_db_connection-checkpoint.ipynb
+    |       mod02_data_functions-checkpoint.ipynb
+    |       mod02_data_functions-checkpoint.py
+    |       mod03A_preprocessing-checkpoint.py
+    |       mod03_clean_data_train-checkpoint.ipynb
+    |       mod03_preprocessing_v2-checkpoint.py
+    |       mod04_train_model-checkpoint.py
+    |       pipeline-checkpoint.py
+    |       
+    +---tests
+    |   |   02_S3_data_api_fetch_append.ipynb
+    |   |   nbk1_testing.ipynb
+    |   |   
+    |   \---.ipynb_checkpoints
+    |           02_S3_data_api_fetch_append-checkpoint.ipynb
+    |           nbk1_testing-checkpoint.ipynb
+    |           
+    \---__pycache__
+            02_data_functions.cpython-311.pyc
+            mod02_data_functions.cpython-311.pyc
+            mod03A_preprocessing.cpython-311.pyc
+            mod03_preprocessing_v2.cpython-311.pyc
+            mod04_train_model.cpython-311.pyc
+            

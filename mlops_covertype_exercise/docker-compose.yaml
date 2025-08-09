@@ -1,26 +1,28 @@
 services:
   api:
-    build: .
+    build: 
+      context: data_api #folder with Dockerfile defining the FastAPI service
+      dockerfile: Dockerfile
     container_name: fastapi
     ports:
       - '80:80'
     volumes:
-      - ./data:/data
-      - ./main.py:/main.py
+      - ./data_api/data:/data         # keep bind mount to work with data locally
+      - ./data_api/main.py:/main.py   # bind mount for live editing
     restart: always
 
   minio:
     container_name: Minio
     command: server /data --console-address ":9001"
     environment:
-      - MINIO_ROOT_USER=admin
-      - MINIO_ROOT_PASSWORD=supersecret
+      - MINIO_ROOT_USER= ${MINIO_ROOT_USER}
+      - MINIO_ROOT_PASSWORD= ${MINIO_ROOT_PASSWORD}
     image: quay.io/minio/minio:latest
     ports:
       - '9000:9000'
       - '9001:9001'
     volumes:
-      - minio_data:/data
+      - minio_data:/data # named volume
 
     restart: unless-stopped
 
@@ -32,14 +34,14 @@ services:
     container_name: MLflow
     environment:
       MLFLOW_S3_ENDPOINT_URL: http://minio:9000 #Minio for model storage
-      AWS_ACCESS_KEY_ID: admin
-      AWS_SECRET_ACCESS_KEY: supersecret
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
     depends_on:
       - minio
     ports:
       - 5001:5000
     volumes:
-      - ./mlflowdb:/app/mlflowdb
+      - mlflowdb:/app/mlflowdb # named volume
     restart: always
 
   mysql:
@@ -54,7 +56,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - mysql_data:/var/lib/mysql # named volume
 
   jupyter:
     image: jupyter/scipy-notebook:latest
@@ -62,14 +64,14 @@ services:
     ports:
       - "8888:8888"
     volumes:
-      - ./notebooks:/home/jovyan/work
+      - ./notebooks:/home/jovyan/work # bind mount to keep your notebooks local
     environment:
       - JUPYTER_ENABLE_LAB=yes
       - MLFLOW_TRACKING_URI=http://mlflow:5000
       - MLFLOW_S3_ENDPOINT_URL=http://minio:9000
-      - AWS_ACCESS_KEY_ID=admin
-      - AWS_SECRET_ACCESS_KEY=supersecret
-      - PASSWORD=valentasecret
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - JUPYTER_PASSWORD=${JUPYTER_PASSWORD}
       - MYSQL_HOST=${MYSQL_HOST}
       - MYSQL_PORT=${MYSQL_PORT}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
@@ -84,4 +86,6 @@ volumes:
   minio_data:
     driver: local
   mysql_data:
+    driver: local
+  mlflowdb:
     driver: local
