@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  api-inferencia:
+    build: .
+    container_name: api-inferencia
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
