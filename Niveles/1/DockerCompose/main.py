@@ -9,7 +9,18 @@ data = load_iris()
 model = RandomForestClassifier()
 model.fit(data.data, data.target)
 
-@app.get("/predict")
+@app.get("/prediction")
 def predict(sepal_length: float, sepal_width: float, petal_length: float, petal_width: float):
     prediction = model.predict([[sepal_length, sepal_width, petal_length, petal_width]])
+    return {"prediction": int(prediction[0])}
+
+
+@app.post("/predict")
+def predict_item(sepal_length: float, sepal_width: float, petal_length: float, petal_width: float):
+    try:
+        prediction = model.predict([[sepal_length, sepal_width, petal_length, petal_width]])     
+    
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
     return {"prediction": int(prediction[0])}
