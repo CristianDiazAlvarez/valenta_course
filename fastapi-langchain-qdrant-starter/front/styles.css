@@ -1,0 +1,25 @@
+* { box-sizing: border-box; }
+body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, 'Helvetica Neue', Arial, sans-serif; background:#0f172a; color:#e5e7eb; }
+.app { max-width: 900px; margin: 0 auto; min-height: 100vh; display: grid; grid-template-rows: auto 1fr auto; }
+header { display:flex; align-items:center; justify-content:space-between; gap: 16px; padding: 12px 16px; border-bottom: 1px solid #1f2937; background:#0b1220; position: sticky; top:0; z-index:1;}
+h1 { font-size: 18px; margin:0; color:#f8fafc; }
+.config { display:flex; align-items:center; gap:8px; }
+.config input { width: 260px; background:#0f172a; border:1px solid #334155; color:#e5e7eb; padding:6px 8px; border-radius:8px; }
+.config button, #send { background:#2563eb; color:white; border:none; padding:8px 12px; border-radius:10px; cursor:pointer; }
+.config button:hover, #send:hover { filter:brightness(1.1); }
+main#chat { padding: 16px; overflow:auto; display:flex; flex-direction:column; gap:12px; }
+.msg { display:flex; gap:10px; }
+.msg.user { flex-direction: row-reverse; }
+.msg .avatar { width:36px; height:36px; border-radius:50%; background:#1e293b; display:flex; align-items:center; justify-content:center; }
+.msg.user .avatar { background:#334155; }
+.msg .bubble { max-width: 75%; background:#111827; border:1px solid #1f2937; padding: 10px 12px; border-radius: 12px; }
+.msg.assistant .bubble { background:#0b1220; }
+.msg.user .bubble { background:#1b1f2a; }
+.bubble .content { white-space: pre-wrap; line-height: 1.4; }
+.meta { margin-top:6px; opacity:0.7; font-size: 12px; display:flex; gap:10px; }
+.sources a { color:#93c5fd; text-decoration: none; }
+footer.composer { display:flex; gap:10px; padding: 10px 16px; border-top: 1px solid #1f2937; background:#0b1220; position: sticky; bottom:0; }
+#input { flex:1; resize:vertical; border-radius:10px; border:1px solid #334155; background:#0f172a; color:#e5e7eb; padding:10px; }
+#send { min-width: 96px; }
+.hint { text-align:center; opacity:0.6; font-size:14px; margin-top: 8px; }
+.loading { opacity:0.6; font-style:italic; }
