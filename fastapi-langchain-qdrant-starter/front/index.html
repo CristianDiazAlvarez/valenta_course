@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RAG Chat • Frontend mínimo</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>RAG Chat</h1>
+      <div class="config">
+        <label>API Base:</label>
+        <input id="apiBase" type="text" value="http://localhost:8000" />
+        <button id="saveCfg" title="Guardar API Base">Guardar</button>
+      </div>
+    </header>
+
+    <main id="chat"></main>
+
+    <footer class="composer">
+      <textarea id="input" rows="2" placeholder="Escribe tu mensaje..."></textarea>
+      <button id="send">Enviar</button>
+    </footer>
+  </div>
+
+  <template id="msgTemplate">
+    <div class="msg">
+      <div class="avatar"></div>
+      <div class="bubble">
+        <div class="content"></div>
+        <div class="meta">
+          <span class="time"></span>
+          <span class="sources"></span>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
