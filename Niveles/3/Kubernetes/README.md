@@ -60,8 +60,6 @@ Acceder al dashboard de Kubernetes
 microk8s dashboard-proxy
 ```
 
-## Pasar de docker compose a kubernetes
-
 ### Linux
 
 Descargar, dar permisos y mover kompose
@@ -107,6 +105,8 @@ On macOS, you can install the latest release via [Homebrew](https://brew.sh) or 
 ```bash
 brew install kompose
 ```
+
+## Pasar de docker compose a kubernetes
 
 ### Este ejemplo esta pensado a partir de un proceso de inferencia simple
 
