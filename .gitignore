@@ -11,6 +11,6 @@ logs/
 plugins/
 .env
 .DS_Store
-minio/
+
 mlflowdb/
 *timestamp*
